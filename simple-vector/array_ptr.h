@@ -36,11 +36,13 @@ public:
 
     ArrayPtr& operator=(ArrayPtr&& rhs) {
         if (this != &rhs) {
+/*
             if (raw_ptr_ != nullptr) {
                 delete[] raw_ptr_;
                 raw_ptr_ = nullptr;
                 capacity_ = 0;
             }
+*/
             swap(rhs);
         }
         return *this;

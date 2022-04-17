@@ -100,12 +100,14 @@ public:
 
     // Возвращает ссылку на элемент с индексом index
     Type& operator[](size_t index) noexcept {
+        assert(index < size_);
         return data_[index];
     }
 
     // Возвращает константную ссылку на элемент с индексом
     // index
     const Type& operator[](size_t index) const noexcept {
+        assert(index < size_);
         return data_[index];
     }
 
@@ -193,6 +195,7 @@ public:
     // полностью, вместимость вектора должна увеличиться
     // вдвое, а для вектора вместимостью 0 стать равной 1
     Iterator Insert(ConstIterator pos, const Type& value) {
+        assert(pos >= begin() && pos <= end());
         Iterator it = const_cast<Iterator>(pos);
         if (capacity_ > size_) {
             std::move_backward(std::make_move_iterator(it),
@@ -227,6 +230,7 @@ public:
     }
 
     Iterator Insert(ConstIterator pos, Type&& value) {
+        assert(pos >= begin() && pos <= end());
         Iterator it = const_cast<Iterator>(pos);
         if (capacity_ > size_) {
             std::move_backward(std::make_move_iterator(it),
@@ -262,6 +266,7 @@ public:
 
     // Удаляет элемент вектора в указанной позиции
     Iterator Erase(ConstIterator pos) {
+        assert(pos >= begin() && pos < end());
         Iterator it = const_cast<Iterator>(pos);
         size_t index = std::distance(begin(), it);
         if (size_ > index + 1) {
